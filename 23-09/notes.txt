@@ -1,0 +1,27 @@
+<!-- admin_login.php -->
+<!-- admin_login.php -->
+.replace(/\s/g, '') is a JavaScript method (replace) that is used to search for and replace all whitespace characters (in this case, spaces) in the input value with an empty string (''). This effectively removes any spaces that the user types into the field in real-time.
+
+<!-- sql query  -->
+$select_admin = $conn->prepare("SELECT * FROM `admins` WHERE name = ? AND password = ?");
+   $select_admin->execute([$name, $pass]);
+   $row = $select_admin->fetch(PDO::FETCH_ASSOC);
+
+   if($select_admin->rowCount() > 0){
+      $_SESSION['admin_id'] = $row['id'];
+      header('location:dashboard.php');
+   }else{
+      $message[] = 'incorrect username or password!';
+   }
+ 
+ prepare() is a PDO method that prepares an SQL statement for execution. Inside the parentheses, you have an SQL query that selects all columns from a table named admins where the name and password match placeholders represented by ?. The use of placeholders (?) helps protect against SQL injection by allowing you to bind values later.
+
+ $select_admin is a variable used to store a prepared statement. Prepared statements are used to execute SQL queries securely and efficiently.
+
+ $select_admin->execute([$name, $pass]) executes the prepared statement. The values in the array [$name, $pass] are bound to the placeholders in the SQL query (?). This means that the actual values of the username ($name) and password ($pass) are substituted into the query.
+
+ $select_admin->fetch(PDO::FETCH_ASSOC) fetches the result of the executed query. It retrieves one row from the result set as an associative array.
+The resulting associative array ($row) contains the data from the selected row in the admins table. Each column name becomes an associative key, and the corresponding values are stored as key-value pairs in the array.
+
+  
+  
